@@ -1,0 +1,41 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+.venv/
+env/
+venv/
+
+# Airflow local files
+airflow.db
+airflow.cfg
+unittests.cfg
+logs/
+*.log
+*.pid
+*.pid.lock
+celerybeat-schedule
+
+# Jupyter artifacts
+.ipynb_checkpoints/
+
+# Environment files (isi credentials, jangan di-push)
+.env
+.env.*
+
+# Docker override
+docker-compose.override.yml
+
+# Editor config
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+
+# OS files
+.DS_Store
+Thumbs.db
+airflow-docker/logs/
