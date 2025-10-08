@@ -13,9 +13,9 @@ sys.path.append('/opt/airflow/include')
 # =================================================================================
 KATEGORI_MAPPING = {
     # 'nama_kolom_di_google_sheet': 'nama_file_processor_tanpa_py'
-    'infrastruktur code 1 (catherine)': 'process_kategori_1',
-    'pariwisata': 'process_kategori_2',
-    # ... tambahkan 8 mapping lainnya di sini ...
+     'kesehatan': 'process_kategori_1',
+    'pendidikan': 'process_kategori_2',
+
 }
 # =================================================================================
 
@@ -41,7 +41,7 @@ def bps_data_pipeline_dag():
             print(f"Mengimpor modul 'processors.{module_name}' untuk kolom '{column_name}'")
             
             # Mengimpor modul secara dinamis, cth: from processors import process_kategori_1
-            processor_module = importlib.import_module(f"processors.{module_name}")
+            processor_module = importlib.import_module(f"include.processors.{module_name}")
             
             # Menjalankan fungsi run_etl() dari modul yang sudah diimpor
             processor_module.run_etl(sheet_column_name=column_name)

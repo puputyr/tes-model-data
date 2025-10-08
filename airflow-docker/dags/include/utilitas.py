@@ -2,7 +2,6 @@
 import pandas as pd
 import re
 import datetime
-from IPython.display import display, Markdown
 
 # URL Google Sheet terpusat di sini
 URL_SHEET = "https://docs.google.com/spreadsheets/d/1hZNDzfOVC7syH_seSqf2NGLziKvjkGHa8KnfuEbSsz4/export?format=csv&gid=357398258"
@@ -25,10 +24,6 @@ def log_error(message):
     with open("error_log.txt", "a", encoding="utf-8") as f:
         f.write(f"[{datetime.datetime.now()}] {message}\n")
 
-# Fungsi print_success, print_info, dll. bisa tetap di sini jika dibutuhkan untuk logging
-# Namun, di Airflow, logging utama akan ditangani oleh sistem log Airflow itu sendiri.
-# Jadi, kita bisa menyederhanakannya menjadi print() biasa.
-
 def format_schema_name(name_suggestion):
     name = str(name_suggestion).lower()
     name = re.sub(r'[^a-z0-9\s]', ' ', name)
@@ -46,3 +41,14 @@ def format_table_name(name_suggestion, max_length=63):
     vowels = "aiueo"
     name_no_vowels = "".join([char for char in name if char not in vowels or char.isdigit()])
     return name_no_vowels[:max_length]
+
+def get_schema_and_table_names(api_response):
+    try:
+        subject_label = api_response['subject'][0]['label'] if api_response.get('subject') else 'bps_data'
+        var_label = api_response['var'][0]['label'] if api_response.get('var') else 'data'
+        schema_name = format_schema_name(subject_label)
+        table_name = format_table_name(var_label)
+        return schema_name, table_name
+
+    except Exception as e:
+        log_error(f"Error extracting names: {str(e)}")

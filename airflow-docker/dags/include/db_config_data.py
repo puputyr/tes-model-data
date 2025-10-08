@@ -1,10 +1,4 @@
-# include/db_config_data.py
 import psycopg2
-
-# -------------------------------------------------------------------
-# Kredensial untuk koneksi ke database PostgreSQL Anda.
-# Sebaiknya, untuk production, gunakan Airflow Connections (Variables & Secrets).
-# -------------------------------------------------------------------
 DB_CONFIG = {
     "dbname": "result_cleansing",
     "user": "postgres",
